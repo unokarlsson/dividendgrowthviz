@@ -1,6 +1,8 @@
 /* global Plotly:true */
 
 import React from 'react';
+import Aux from '../../hoc/Aux';
+
 import createPlotlyComponent from 'react-plotly.js/factory';
 
 // How to get Plotly working, one fo many ways:
@@ -33,13 +35,13 @@ const Plot = createPlotlyComponent(Plotly);
 
 const visualization =  (props) => {
     return (
-        <div>
+        <Aux>
             <p>Visualization with plotly</p>
             <Plot
               data={props.data}
               layout={props.layout}
             />
-        </div>
+        </Aux>
     );
 };
 

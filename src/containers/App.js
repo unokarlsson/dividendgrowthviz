@@ -106,39 +106,37 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Header headers={this.state.headers}/>
+
         <div>
-          <Header headers={this.state.headers}/>
-
-          <div>
-            <InputNumber
-              onChange={this.amountHandler}
-              label={this.state.amount.label}
-              value={this.state.amount.value}/>
-            <InputNumber
-              onChange={this.dividendHandler}
-              label={this.state.dividend.label}
-              value={this.state.dividend.value}/>
-            <InputNumber
-              onChange={this.growthHandler}
-              label={this.state.growth.label}
-              value={this.state.growth.value}/>
-            <InputNumber
-              onChange={this.yearsHandler}
-              label={this.state.years.label}
-              value={this.state.years.value}/>
-          </div>
-
-          <div>
-            <OutputNumber label={this.state.amount.label} value={this.state.amount.value} />
-            <OutputNumber label={this.state.dividend.label} value={this.state.dividend.value} />
-            <OutputNumber label={this.state.growth.label} value={this.state.growth.value} />
-            <OutputNumber label={this.state.years.label} value={this.state.years.value} />
-          </div>
-
-          <Visualization data={this.state.data} layout={this.state.layout}/>
-
-          <Footer footers={this.state.footers}/>
+          <InputNumber
+            onChange={this.amountHandler}
+            label={this.state.amount.label}
+            value={this.state.amount.value}/>
+          <InputNumber
+            onChange={this.dividendHandler}
+            label={this.state.dividend.label}
+            value={this.state.dividend.value}/>
+          <InputNumber
+            onChange={this.growthHandler}
+            label={this.state.growth.label}
+            value={this.state.growth.value}/>
+          <InputNumber
+            onChange={this.yearsHandler}
+            label={this.state.years.label}
+            value={this.state.years.value}/>
         </div>
+
+        <div>
+          <OutputNumber label={this.state.amount.label} value={this.state.amount.value} />
+          <OutputNumber label={this.state.dividend.label} value={this.state.dividend.value} />
+          <OutputNumber label={this.state.growth.label} value={this.state.growth.value} />
+          <OutputNumber label={this.state.years.label} value={this.state.years.value} />
+        </div>
+
+        <Visualization data={this.state.data} layout={this.state.layout}/>
+
+        <Footer footers={this.state.footers}/>
       </div>
     );
   }
