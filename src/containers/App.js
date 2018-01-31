@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import './App.css';
 import Header from '../components/Header/Header';
-import Menu from '../components/Menu/Menu';
+// import Menu from '../components/Menu/Menu';
 import InputNumber from '../components/Input/InputNumber';
 import Button from '../components/Input/Button';
-import OutputNumber from '../components/Output/OutputNumber';
+// import OutputNumber from '../components/Output/OutputNumber';
 import Visualization from '../components/Output/Visualization';
 import Footer from '../components/Footer/Footer';
 import Aux from '../hoc/Auxiliary/Auxiliary';
@@ -54,16 +54,18 @@ class App extends Component {
     // Earlier all component state was created in the constructor.
     // Always call super(props) first in the constructor.
     super(props);
-    console.log("this.state.applicationTitle=",this.state.applicationTitle);
+    // TODO: The props.title from the index.js has stoped working!!!
+    console.log("this.state.applicationTitle=" + this.state.applicationTitle);
     console.log("props.title=" + props.title);
+
     let headers = [
       { id:'1',text:'Logo'},
       { id:'2',text:''},
       { id:'3',text:'Info'}
     ];
     headers[1].text = props.title;
-    console.log("headers=" + headers[1].text);
     this.state.headers = headers;
+
     this.state.data = this.dividendGrowthCalculation();
   }
 
@@ -169,13 +171,6 @@ class App extends Component {
             name={'Update visualization'} />
         </div>
 
-        <div>
-          <OutputNumber label={this.state.amount.label} value={this.state.amount.value} />
-          <OutputNumber label={this.state.dividend.label} value={this.state.dividend.value} />
-          <OutputNumber label={this.state.growth.label} value={this.state.growth.value} />
-          <OutputNumber label={this.state.years.label} value={this.state.years.value} />
-        </div>
-
         <Visualization data={this.state.data} layout={this.state.layout}/>
 
         <Footer footers={this.state.footers}/>
@@ -184,4 +179,13 @@ class App extends Component {
   }
 }
 
-export default withClass(App, appStyle);
+/*
+        <div>
+          <OutputNumber label={this.state.amount.label} value={this.state.amount.value} />
+          <OutputNumber label={this.state.dividend.label} value={this.state.dividend.value} />
+          <OutputNumber label={this.state.growth.label} value={this.state.growth.value} />
+          <OutputNumber label={this.state.years.label} value={this.state.years.value} />
+        </div>
+
+*/
+export default App; // withClass(App, appStyle);
