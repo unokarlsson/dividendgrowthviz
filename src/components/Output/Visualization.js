@@ -1,7 +1,7 @@
 /* global Plotly:true */
 
 import React from 'react';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Auxiliary/Auxiliary';
 
 import createPlotlyComponent from 'react-plotly.js/factory';
 

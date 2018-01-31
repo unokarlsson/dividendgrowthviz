@@ -1,11 +1,13 @@
 import React from 'react';
+import Aux from '../../hoc/Auxiliary/Auxiliary';
+import withClass from '../../hoc/withClass';
+
+const divStyle = {
+    padding: '0px 0px',
+    marging: '0px 0px'
+};
 
 const footerText = (props) => {
-
-    const divStyle = {
-        padding: '0px 0px',
-        marging: '0px 0px'
-    };
 
     const pStyle = {
         fontSize: '125%',
@@ -14,10 +16,10 @@ const footerText = (props) => {
     };
 
     return (
-        <div style={divStyle}>
-            <p style={pStyle}>{props.text}</p>
-        </div>
+        <Aux>
+             <p style={pStyle}>{props.text}</p>
+        </Aux>
     )
 }
 
-export default footerText;
+export default withClass(footerText, divStyle);

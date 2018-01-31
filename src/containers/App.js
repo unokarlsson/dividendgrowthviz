@@ -1,18 +1,25 @@
-/* global Plotly:true */
-
 import React, { Component } from 'react';
 
 import './App.css';
 import Header from '../components/Header/Header';
 import Menu from '../components/Menu/Menu';
 import InputNumber from '../components/Input/InputNumber';
+import Button from '../components/Input/Button';
 import OutputNumber from '../components/Output/OutputNumber';
 import Visualization from '../components/Output/Visualization';
 import Footer from '../components/Footer/Footer';
+import Aux from '../hoc/Auxiliary/Auxiliary';
+import withClass from '../hoc/withClass';
+
+const appStyle = {
+  padding: '0px 0px',
+  marging: '0px 0px'
+};
 
 class App extends Component {
   state = {
-    applicationName: 'Dividend Growth Visualization',
+    applicationTitle: 'Dividend Growth Visualization',
+    headers: [],
     footerText1: 'Footer text one',
     footetText2: 'Footer text two',
     footers: [
@@ -29,13 +36,6 @@ class App extends Component {
     growth: {label:'Growth',value:4},
     years: {label:'Years',value:5},
     data: [
-      {
-        type: 'scatter',
-        mode: 'lines+points',
-        x: [1, 2, 3],
-        y: [2, 6, 3],
-        marker: {color: 'red'}
-      },
       {
         type: 'bar',
         x: [1, 2, 3],
@@ -54,13 +54,17 @@ class App extends Component {
     // Earlier all component state was created in the constructor.
     // Always call super(props) first in the constructor.
     super(props);
+    console.log("this.state.applicationTitle=",this.state.applicationTitle);
+    console.log("props.title=" + props.title);
     let headers = [
-      { id:'1',text:'Company'},
+      { id:'1',text:'Logo'},
       { id:'2',text:''},
       { id:'3',text:'Info'}
     ];
     headers[1].text = props.title;
+    console.log("headers=" + headers[1].text);
     this.state.headers = headers;
+    this.state.data = this.dividendGrowthCalculation();
   }
 
   amountHandler = (event) => {
@@ -90,22 +94,58 @@ class App extends Component {
   yearsHandler = (event) => {
     const years = {...this.state.years};
     years.value = event.target.value;
-    this.setState({years: years});
-    // TODO: Calculate new data
-    // TODO: Update this.state.data
+    this.setState((state) => ({years: years}));
+    // this.setState((state) => ({data: this.dividendGrowthCalculation()}));
+    //   {data: this.dividendGrowthCalculation()});
   };
+
+  updateHandler = (event) => {
+    const data = this.dividendGrowthCalculation();
+    this.setState({data: data});
+  }
 
   dividendGrowthCalculation = () => {
     // TODO: Do the calculation of dividend growth in the form that is
     // fits the plotly visualization package.
 
+    const YEARS = this.state.years.value;
+    const AMOUNT = this.state.amount.value;
+    const DIVIDEND = this.state.dividend.value;
+    const GROWTH = this.state.growth.value;
+    
+    let amount = AMOUNT;
+    let dividend = DIVIDEND/100;
+    let growth = GROWTH/100;
+
+    const xArray = [];
+    const yArray = [];
+
+    xArray.push(0);
+    yArray.push(amount);
+    for(let index = 1; index <= YEARS; index++) {
+        //only dividend calculation
+      amount = amount + (amount*dividend);
+
+      xArray.push(index);
+      yArray.push(amount);
+    }
+
+    const data = [
+      {
+        type: 'bar',
+        x: xArray,
+        y: yArray
+      }
+    ]
+
+    return data;
   }
 
   /* <Menu menus={this.state.menus}/> */
 
   render() {
     return (
-      <div>
+      <Aux>
         <Header headers={this.state.headers}/>
 
         <div>
@@ -125,6 +165,8 @@ class App extends Component {
             onChange={this.yearsHandler}
             label={this.state.years.label}
             value={this.state.years.value}/>
+          <Button onClick={this.updateHandler}
+            name={'Update visualization'} />
         </div>
 
         <div>
@@ -137,9 +179,9 @@ class App extends Component {
         <Visualization data={this.state.data} layout={this.state.layout}/>
 
         <Footer footers={this.state.footers}/>
-      </div>
+      </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, appStyle);
