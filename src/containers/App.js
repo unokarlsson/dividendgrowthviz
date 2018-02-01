@@ -4,7 +4,7 @@ import './App.css';
 import Header from '../components/Header/Header';
 // import Menu from '../components/Menu/Menu';
 import InputNumber from '../components/Input/InputNumber';
-import Button from '../components/Input/Button';
+// import Button from '../components/Input/Button';
 // import OutputNumber from '../components/Output/OutputNumber';
 import Visualization from '../components/Output/Visualization';
 import Footer from '../components/Footer/Footer';
@@ -66,58 +66,89 @@ class App extends Component {
     headers[1].text = props.title;
     this.state.headers = headers;
 
-    this.state.data = this.dividendGrowthCalculation();
+    this.state.data =
+       this.dividendGrowthCalculation(this.state.amount.value,
+                                      this.state.years.value,
+                                      this.state.dividend.value,
+                                      this.state.growth.value);
   }
 
   amountHandler = (event) => {
     const amount = {...this.state.amount};
     amount.value = event.target.value;
-    this.setState({amount: amount});
-    // TODO: Calculate new data
-    // TODO: Update this.state.data
+    this.setState((state) => ({amount: amount}));
+    const data =
+        this.dividendGrowthCalculation(amount.value,
+                                       this.state.years.value,
+                                       this.state.dividend.value,
+                                       this.state.growth.value)
+    this.setState({data: data});
   };
 
   dividendHandler = (event) => {
     const dividend = {...this.state.dividend};
     dividend.value = event.target.value;
-    this.setState({dividend: dividend});
-    // TODO: Calculate new data
-    // TODO: Update this.state.data
-  };
+    this.setState((state) => ({dividend: dividend}));
+    const data =
+        this.dividendGrowthCalculation(this.state.amount.value,
+                                       this.state.years.value,
+                                       dividend.value,
+                                       this.state.growth.value)
+    this.setState({data: data});
+};
 
   growthHandler = (event) => {
     const growth = {...this.state.growth};
     growth.value = event.target.value;
-    this.setState({growth: growth});
-      // TODO: Calculate new data
-    // TODO: Update this.state.data
+    this.setState((state) => ({growth: growth}));
+    const data =
+        this.dividendGrowthCalculation(this.state.amount.value,
+                                       this.state.years.value,
+                                       this.state.dividend.value,
+                                       growth.value)
+    this.setState({data: data});
 };
 
   yearsHandler = (event) => {
     const years = {...this.state.years};
     years.value = event.target.value;
     this.setState((state) => ({years: years}));
-    // this.setState((state) => ({data: this.dividendGrowthCalculation()}));
-    //   {data: this.dividendGrowthCalculation()});
+    const data =
+        this.dividendGrowthCalculation(this.state.amount.value,
+                                       years.value,
+                                       this.state.dividend.value,
+                                       this.state.growth.value)
+    this.setState({data: data});
   };
 
   updateHandler = (event) => {
-    const data = this.dividendGrowthCalculation();
+    const data = this.dividendGrowthCalculation(this.state.amount.value,
+      this.state.years.value,
+      this.state.dividend.value,
+      this.state.growth.value);
     this.setState({data: data});
   }
 
-  dividendGrowthCalculation = () => {
+  dividendGrowthCalculation = (a,y,d,g) => {
     // TODO: Do the calculation of dividend growth in the form that is
     // fits the plotly visualization package.
 
+    const AMOUNT    = parseInt(a);
+    const YEARS     = parseInt(y);
+    const DIVIDEND  = parseInt(d);
+    const GROWTH    = parseInt(g);
+
+/*
     const YEARS = this.state.years.value;
     const AMOUNT = this.state.amount.value;
     const DIVIDEND = this.state.dividend.value;
     const GROWTH = this.state.growth.value;
-    
-    let amount = AMOUNT;
-    let dividend = DIVIDEND/100;
-    let growth = GROWTH/100;
+*/    
+    let amount    = AMOUNT;
+    let dividend  = DIVIDEND/100;
+    let growth    = GROWTH/100;
+
+    console.log("amount=" + amount + ",years=" + YEARS + ",dividend=" + dividend + ",growth=" + growth);
 
     const xArray = [];
     const yArray = [];
@@ -125,12 +156,27 @@ class App extends Component {
     xArray.push(0);
     yArray.push(amount);
     for(let index = 1; index <= YEARS; index++) {
-        //only dividend calculation
-      amount = amount + (amount*dividend);
+      // Dividend growth calculation
+      let dividendGrowth = dividend*growth; // 0.04*0.03 = 0.0012
+      console.log("dividendGrowth=" + dividendGrowth);
+      
+      dividend = dividend + dividendGrowth;
+      console.log("dividend=" + dividend);
+
+      // Dividend calculation
+      let dividendAmount = Math.round((amount*dividend)*100)/100;
+      console.log("dividendAmount=" + dividendAmount);
+
+      // Amount calculation
+      amount = amount + dividendAmount;
+      amount = Math.round(amount*100)/100;
+      console.log("amount=" + amount);
 
       xArray.push(index);
       yArray.push(amount);
     }
+
+    console.log("yArray=" + yArray);
 
     const data = [
       {
@@ -167,8 +213,6 @@ class App extends Component {
             onChange={this.yearsHandler}
             label={this.state.years.label}
             value={this.state.years.value}/>
-          <Button onClick={this.updateHandler}
-            name={'Update visualization'} />
         </div>
 
         <Visualization data={this.state.data} layout={this.state.layout}/>
@@ -186,6 +230,8 @@ class App extends Component {
           <OutputNumber label={this.state.growth.label} value={this.state.growth.value} />
           <OutputNumber label={this.state.years.label} value={this.state.years.value} />
         </div>
+        <Button onClick={this.updateHandler}
+            name={'Update visualization'} />
 
 */
 export default App; // withClass(App, appStyle);
