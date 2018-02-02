@@ -33,19 +33,19 @@ class App extends Component {
     ],
     amount: {label:'Amount',value:10000},
     dividend: {label:'Dividend',value:3},
-    growth: {label:'Growth',value:4},
-    years: {label:'Years',value:5},
-    data: [
-      {
-        type: 'bar',
-        x: [1, 2, 3],
-        y: [2, 5, 3]
-      }
-    ],
-    layout:{
-      width: 400,
-      height: 400,
-      title: 'A Fancy Plot'
+    growth: {label:'Growth',value:5},
+    years: {label:'Years',value:10},
+    amountData: [],
+    yieldData: [],
+    amountLayout: {
+      width: 500,
+      height: 300,
+      title: 'Amount Visualization'
+    },
+    yieldLayout: {
+      width: 500,
+      height: 300,
+      title: 'Yield Visualization'
     }
   };
 
@@ -54,7 +54,6 @@ class App extends Component {
     // Earlier all component state was created in the constructor.
     // Always call super(props) first in the constructor.
     super(props);
-    // TODO: The props.title from the index.js has stoped working!!!
     console.log("this.state.applicationTitle=" + this.state.applicationTitle);
     console.log("props.title=" + props.title);
 
@@ -66,11 +65,14 @@ class App extends Component {
     headers[1].text = props.title;
     this.state.headers = headers;
 
-    this.state.data =
-       this.dividendGrowthCalculation(this.state.amount.value,
+    const data =
+        this.dividendGrowthCalculation(this.state.amount.value,
                                       this.state.years.value,
                                       this.state.dividend.value,
                                       this.state.growth.value);
+
+    this.state.amountData = data.amountData;
+    this.state.yieldData  = data.yieldData;
   }
 
   amountHandler = (event) => {
@@ -81,8 +83,9 @@ class App extends Component {
         this.dividendGrowthCalculation(amount.value,
                                        this.state.years.value,
                                        this.state.dividend.value,
-                                       this.state.growth.value)
-    this.setState({data: data});
+                                       this.state.growth.value);
+    this.setState({amountData: data.amountData});
+    this.setState({yieldData: data.yieldData});
   };
 
   dividendHandler = (event) => {
@@ -94,8 +97,9 @@ class App extends Component {
                                        this.state.years.value,
                                        dividend.value,
                                        this.state.growth.value)
-    this.setState({data: data});
-};
+    this.setState({amountData: data.amountData});
+    this.setState({yieldData: data.yieldData});
+  };
 
   growthHandler = (event) => {
     const growth = {...this.state.growth};
@@ -106,7 +110,8 @@ class App extends Component {
                                        this.state.years.value,
                                        this.state.dividend.value,
                                        growth.value)
-    this.setState({data: data});
+    this.setState({amountData: data.amountData});
+    this.setState({yieldData: data.yieldData});
 };
 
   yearsHandler = (event) => {
@@ -118,43 +123,33 @@ class App extends Component {
                                        years.value,
                                        this.state.dividend.value,
                                        this.state.growth.value)
-    this.setState({data: data});
+    this.setState({amountData: data.amountData});
+    this.setState({yieldData: data.yieldData});
   };
 
-  updateHandler = (event) => {
-    const data = this.dividendGrowthCalculation(this.state.amount.value,
-      this.state.years.value,
-      this.state.dividend.value,
-      this.state.growth.value);
-    this.setState({data: data});
-  }
-
   dividendGrowthCalculation = (a,y,d,g) => {
-    // TODO: Do the calculation of dividend growth in the form that is
-    // fits the plotly visualization package.
+    // Calculation of dividend growth and create the data in a format
+    // that fits the plotly visualization package.
 
     const AMOUNT    = parseInt(a);
     const YEARS     = parseInt(y);
     const DIVIDEND  = parseInt(d);
     const GROWTH    = parseInt(g);
 
-/*
-    const YEARS = this.state.years.value;
-    const AMOUNT = this.state.amount.value;
-    const DIVIDEND = this.state.dividend.value;
-    const GROWTH = this.state.growth.value;
-*/    
     let amount    = AMOUNT;
     let dividend  = DIVIDEND/100;
     let growth    = GROWTH/100;
 
     console.log("amount=" + amount + ",years=" + YEARS + ",dividend=" + dividend + ",growth=" + growth);
 
-    const xArray = [];
-    const yArray = [];
+    const xArray        = [];
+    const yAmountArray  = [];
+    const yYieldArray   = [];
 
     xArray.push(0);
-    yArray.push(amount);
+    yAmountArray.push(amount);
+    yYieldArray.push(dividend*100);
+
     for(let index = 1; index <= YEARS; index++) {
       // Dividend growth calculation
       let dividendGrowth = dividend*growth; // 0.04*0.03 = 0.0012
@@ -172,20 +167,41 @@ class App extends Component {
       amount = Math.round(amount*100)/100;
       console.log("amount=" + amount);
 
+      const yieldInitAmountBase = dividendAmount/AMOUNT;
+      console.log("yieldInitAmountBase=" + yieldInitAmountBase);
+
+      const yieldInitAmount = Math.round(yieldInitAmountBase*10000)/100;
+      console.log("yieldInitAmount=" + yieldInitAmount);
+
       xArray.push(index);
-      yArray.push(amount);
+      yAmountArray.push(amount);
+      yYieldArray.push(yieldInitAmount);
     }
 
-    console.log("yArray=" + yArray);
+    console.log("yAmountArray=" + yAmountArray);
+    console.log("yYieldArray=" + yYieldArray);
 
-    const data = [
+    const amountData = [
       {
         type: 'bar',
         x: xArray,
-        y: yArray
+        y: yAmountArray
       }
     ]
 
+    const yieldData = [
+      {
+        type: 'bar',
+        x: xArray,
+        y: yYieldArray
+      }
+    ]
+
+    const data = {
+        amountData: amountData,
+        yieldData: yieldData
+    } 
+    
     return data;
   }
 
@@ -215,7 +231,8 @@ class App extends Component {
             value={this.state.years.value}/>
         </div>
 
-        <Visualization data={this.state.data} layout={this.state.layout}/>
+        <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
+        <Visualization data={this.state.yieldData} layout={this.state.yieldLayout}/>
 
         <Footer footers={this.state.footers}/>
       </Aux>
@@ -230,8 +247,6 @@ class App extends Component {
           <OutputNumber label={this.state.growth.label} value={this.state.growth.value} />
           <OutputNumber label={this.state.years.label} value={this.state.years.value} />
         </div>
-        <Button onClick={this.updateHandler}
-            name={'Update visualization'} />
-
 */
+
 export default App; // withClass(App, appStyle);

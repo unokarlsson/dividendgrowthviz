@@ -36,7 +36,6 @@ const Plot = createPlotlyComponent(Plotly);
 const visualization =  (props) => {
     return (
         <Aux>
-            <p>Visualization with plotly</p>
             <Plot
               data={props.data}
               layout={props.layout}
