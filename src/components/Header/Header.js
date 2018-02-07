@@ -1,31 +1,28 @@
 import React from 'react';
 import HeaderText from './HeaderText';
+import Aux from '../../hoc/Auxiliary/Auxiliary';
 
 const header = (props) => {
 
-    const outerDivStyle = {
+    const headerStyle = {
+        display: 'flex',
+        justifyContent: 'space-between',
         color : 'white',
         backgroundColor: 'blue',
         padding: '0px',
         marging: '0px'
     };
 
-    const innerDivStyle = {
-        display: 'inline-block',
-        padding: '0px',
-        marging: '0px'
-    };
-
     const headers = (
-        <div style={innerDivStyle}>
+        <Aux>
             {props.headers.map((header) => {
                 return <HeaderText key={header.id} text={header.text}/>
             })}
-        </div>
+        </Aux>
     );
 
     return (
-        <div style={outerDivStyle}>{headers}</div>
+        <div style={headerStyle}>{headers}</div>
     )
 }
 

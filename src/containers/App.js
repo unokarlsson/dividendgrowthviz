@@ -4,17 +4,12 @@ import './App.css';
 import Header from '../components/Header/Header';
 // import Menu from '../components/Menu/Menu';
 import InputNumber from '../components/Input/InputNumber';
+import InputRange from '../components/Input/InputRange';
 // import Button from '../components/Input/Button';
-// import OutputNumber from '../components/Output/OutputNumber';
+import OutputNumber from '../components/Output/OutputNumber';
 import Visualization from '../components/Output/Visualization';
 import Footer from '../components/Footer/Footer';
 import Aux from '../hoc/Auxiliary/Auxiliary';
-import withClass from '../hoc/withClass';
-
-const appStyle = {
-  padding: '0px 0px',
-  marging: '0px 0px'
-};
 
 class App extends Component {
   state = {
@@ -60,7 +55,7 @@ class App extends Component {
     let headers = [
       { id:'1',text:'Logo'},
       { id:'2',text:''},
-      { id:'3',text:'Info'}
+      { id:'3',text:'Menu'}
     ];
     headers[1].text = props.title;
     this.state.headers = headers;
@@ -131,10 +126,10 @@ class App extends Component {
     // Calculation of dividend growth and create the data in a format
     // that fits the plotly visualization package.
 
-    const AMOUNT    = parseInt(a);
-    const YEARS     = parseInt(y);
-    const DIVIDEND  = parseInt(d);
-    const GROWTH    = parseInt(g);
+    const AMOUNT    = parseInt(a,10);
+    const YEARS     = parseInt(y,10);
+    const DIVIDEND  = parseInt(d,10);
+    const GROWTH    = parseInt(g,10);
 
     let amount    = AMOUNT;
     let dividend  = DIVIDEND/100;
@@ -208,11 +203,20 @@ class App extends Component {
   /* <Menu menus={this.state.menus}/> */
 
   render() {
+
+    const controlStyle = {
+      display: 'flex',
+      justifyContent: 'center'
+    };
+
     return (
       <Aux>
         <Header headers={this.state.headers}/>
 
-        <div>
+        <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
+        <Visualization data={this.state.yieldData} layout={this.state.yieldLayout}/>
+        
+        <div style={controlStyle}>
           <InputNumber
             onChange={this.amountHandler}
             label={this.state.amount.label}
@@ -221,18 +225,22 @@ class App extends Component {
             onChange={this.dividendHandler}
             label={this.state.dividend.label}
             value={this.state.dividend.value}/>
+
+        </div>
+
+        <div style={controlStyle}>
+          <InputRange
+            onChange={this.yearsHandler}
+            label={this.state.years.label}
+            value={this.state.years.value}/>
           <InputNumber
             onChange={this.growthHandler}
             label={this.state.growth.label}
             value={this.state.growth.value}/>
-          <InputNumber
-            onChange={this.yearsHandler}
-            label={this.state.years.label}
-            value={this.state.years.value}/>
         </div>
+        
+        <OutputNumber label={this.state.years.label} value={this.state.years.value} />
 
-        <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
-        <Visualization data={this.state.yieldData} layout={this.state.yieldLayout}/>
 
         <Footer footers={this.state.footers}/>
       </Aux>
@@ -241,6 +249,11 @@ class App extends Component {
 }
 
 /*
+          <InputNumber
+            onChange={this.yearsHandler}
+            label={this.state.years.label}
+            value={this.state.years.value}/>
+
         <div>
           <OutputNumber label={this.state.amount.label} value={this.state.amount.value} />
           <OutputNumber label={this.state.dividend.label} value={this.state.dividend.value} />
@@ -249,4 +262,4 @@ class App extends Component {
         </div>
 */
 
-export default App; // withClass(App, appStyle);
+export default App;

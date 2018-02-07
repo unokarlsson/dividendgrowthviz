@@ -1,7 +1,7 @@
 /* global Plotly:true */
 
 import React from 'react';
-import Aux from '../../hoc/Auxiliary/Auxiliary';
+// import Aux from '../../hoc/Auxiliary/Auxiliary';
 
 import createPlotlyComponent from 'react-plotly.js/factory';
 
@@ -34,13 +34,19 @@ import createPlotlyComponent from 'react-plotly.js/factory';
 const Plot = createPlotlyComponent(Plotly);
 
 const visualization =  (props) => {
+
+    const visualizationStyle = {
+        display: 'flex',
+        justifyContent: 'center'
+    };
+
     return (
-        <Aux>
+        <div style={visualizationStyle}>
             <Plot
               data={props.data}
               layout={props.layout}
             />
-        </Aux>
+        </div>
     );
 };
 

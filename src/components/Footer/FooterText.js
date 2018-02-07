@@ -1,25 +1,18 @@
 import React from 'react';
-import Aux from '../../hoc/Auxiliary/Auxiliary';
-import withClass from '../../hoc/withClass';
-
-const divStyle = {
-    padding: '0px 0px',
-    marging: '0px 0px'
-};
 
 const footerText = (props) => {
 
-    const pStyle = {
+    const footerTextStyle = {
         fontSize: '125%',
-        padding: '0px 0px',
+        padding: '0px 10px',
         marging: '0px 0px'
     };
 
     return (
-        <Aux>
-             <p style={pStyle}>{props.text}</p>
-        </Aux>
-    )
+        <div style={footerTextStyle}>
+             <p>{props.text}</p>
+        </div>
+    );
 }
 
-export default withClass(footerText, divStyle);
+export default footerText;

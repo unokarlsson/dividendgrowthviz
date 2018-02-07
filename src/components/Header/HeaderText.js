@@ -2,21 +2,15 @@ import React from 'react';
 
 const headerText = (props) => {
 
-    const divStyle = {
-        display: 'inline-block',
-        padding: '0px 20px',
-        marging: '0px'
-    };
-
-    const hStyle = {
+    const headerTextStyle = {
         fontSize: '150%',
-        padding: '0px',
+        padding: '0px 10px',
         marging: '0px'
     };
 
     return (
-        <div style={divStyle}>
-            <p style={hStyle}>{props.text}</p>
+        <div style={headerTextStyle}>
+            <p>{props.text}</p>
         </div>
     );
 }
