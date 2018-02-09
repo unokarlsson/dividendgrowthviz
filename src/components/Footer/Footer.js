@@ -8,7 +8,7 @@ const footer = (props) => {
         display: 'flex',
         justifyContent: 'space-between',
         color : 'white',
-        backgroundColor: 'blue',
+        backgroundColor: '#4CAF50',
         padding: '0px 0px',
         margin: '0px 0px'
     };

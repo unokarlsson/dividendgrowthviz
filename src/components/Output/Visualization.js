@@ -40,9 +40,13 @@ const visualization =  (props) => {
         justifyContent: 'center'
     };
 
+    const plotStyle = {
+        backgroundColor: '#E8F5E9'
+    }
+
     return (
         <div style={visualizationStyle}>
-            <Plot
+            <Plot style={plotStyle}
               data={props.data}
               layout={props.layout}
             />

@@ -9,7 +9,7 @@ import InputRange from '../components/Input/InputRange';
 import OutputNumber from '../components/Output/OutputNumber';
 import Visualization from '../components/Output/Visualization';
 import Footer from '../components/Footer/Footer';
-import Aux from '../hoc/Auxiliary/Auxiliary';
+// import Aux from '../hoc/Auxiliary/Auxiliary';
 
 class App extends Component {
   state = {
@@ -204,13 +204,21 @@ class App extends Component {
 
   render() {
 
+    const mainStyle = {
+      width: '80%',
+      padding: '0px',
+      margin: 'auto',
+      border: '1px solid black',
+      backgroundColor: '#E8F5E9'
+    }   
+
     const controlStyle = {
       display: 'flex',
       justifyContent: 'center'
     };
 
     return (
-      <Aux>
+      <div style={mainStyle}>
         <Header headers={this.state.headers}/>
 
         <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
@@ -225,7 +233,6 @@ class App extends Component {
             onChange={this.dividendHandler}
             label={this.state.dividend.label}
             value={this.state.dividend.value}/>
-
         </div>
 
         <div style={controlStyle}>
@@ -238,12 +245,12 @@ class App extends Component {
             label={this.state.growth.label}
             value={this.state.growth.value}/>
         </div>
-        
+
         <OutputNumber label={this.state.years.label} value={this.state.years.value} />
 
 
         <Footer footers={this.state.footers}/>
-      </Aux>
+      </div>
     );
   }
 }

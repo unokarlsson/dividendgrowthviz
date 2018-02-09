@@ -8,9 +8,9 @@ const header = (props) => {
         display: 'flex',
         justifyContent: 'space-between',
         color : 'white',
-        backgroundColor: 'blue',
-        padding: '0px',
-        marging: '0px'
+        backgroundColor: '#4CAF50',
+        padding: '0',
+        marging: '0'
     };
 
     const headers = (
