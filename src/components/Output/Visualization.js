@@ -37,7 +37,8 @@ const visualization =  (props) => {
 
     const visualizationStyle = {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        margin: '10px'
     };
 
     const plotStyle = {

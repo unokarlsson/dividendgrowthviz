@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderText from './HeaderText';
-import Aux from '../../hoc/Auxiliary/Auxiliary';
+import Logo from '../Logo/Logo';
+// import Aux from '../../hoc/Auxiliary/Auxiliary';
 
 const header = (props) => {
 
@@ -13,16 +14,12 @@ const header = (props) => {
         marging: '0'
     };
 
-    const headers = (
-        <Aux>
-            {props.headers.map((header) => {
-                return <HeaderText key={header.id} text={header.text}/>
-            })}
-        </Aux>
-    );
-
     return (
-        <div style={headerStyle}>{headers}</div>
+        <div style={headerStyle}>
+            <Logo/>
+            <HeaderText text={props.title}/>
+            <HeaderText text='Menus'/>
+        </div>
     )
 }
 

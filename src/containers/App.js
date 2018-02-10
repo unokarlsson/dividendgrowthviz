@@ -13,8 +13,7 @@ import Footer from '../components/Footer/Footer';
 
 class App extends Component {
   state = {
-    applicationTitle: 'Dividend Growth Visualization',
-    headers: [],
+    applicationTitle: '',
     footerText1: 'Footer text one',
     footetText2: 'Footer text two',
     footers: [
@@ -33,14 +32,48 @@ class App extends Component {
     amountData: [],
     yieldData: [],
     amountLayout: {
+      title: 'Amount Visualization',
+      xaxis: {
+        title: 'Years',
+        titlefont: {
+          size: 14,
+          color: 'rgb(107, 107, 107)'
+        }
+      },
+      yaxis: {
+        title: 'Currency',
+        titlefont: {
+          size: 14,
+          color: 'rgb(107, 107, 107)'
+        }
+      },
+      paper_bgcolor: 'rgba(165,214,167,1)',
+      plot_bgcolor: 'rgba(165,214,167,1)',
       width: 500,
-      height: 300,
-      title: 'Amount Visualization'
+      height: 300
+
     },
     yieldLayout: {
+      title: 'Yield Visualization',
+      xaxis: {
+        title: 'Years',
+        titlefont: {
+          size: 14,
+          color: 'rgb(107, 107, 107)'
+        }
+      },
+      yaxis: {
+        title: '% of Initial Amount',
+        titlefont: {
+          size: 14,
+          color: 'rgb(107, 107, 107)'
+        }
+      },
+
+      paper_bgcolor: 'rgba(200,230,201,1)',
+      plot_bgcolor: 'rgba(200,230,201,1)',
       width: 500,
-      height: 300,
-      title: 'Yield Visualization'
+      height: 300
     }
   };
 
@@ -49,16 +82,10 @@ class App extends Component {
     // Earlier all component state was created in the constructor.
     // Always call super(props) first in the constructor.
     super(props);
-    console.log("this.state.applicationTitle=" + this.state.applicationTitle);
+    
     console.log("props.title=" + props.title);
-
-    let headers = [
-      { id:'1',text:'Logo'},
-      { id:'2',text:''},
-      { id:'3',text:'Menu'}
-    ];
-    headers[1].text = props.title;
-    this.state.headers = headers;
+    this.state.applicationTitle = props.title;
+    console.log("this.state.applicationTitle=" + this.state.applicationTitle);
 
     const data =
         this.dividendGrowthCalculation(this.state.amount.value,
@@ -219,7 +246,7 @@ class App extends Component {
 
     return (
       <div style={mainStyle}>
-        <Header headers={this.state.headers}/>
+        <Header title={this.state.applicationTitle}/>
 
         <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
         <Visualization data={this.state.yieldData} layout={this.state.yieldLayout}/>
