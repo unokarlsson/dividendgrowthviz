@@ -41,17 +41,18 @@ class App extends Component {
         }
       },
       yaxis: {
-        title: 'Currency',
+        title: 'Accumulated Amount (Currency)',
         titlefont: {
           size: 14,
           color: 'rgb(107, 107, 107)'
         }
       },
-      paper_bgcolor: 'rgba(165,214,167,1)',
-      plot_bgcolor: 'rgba(165,214,167,1)',
+      // paper_bgcolor: 'rgba(165,214,167,1)',
+      // plot_bgcolor: 'rgba(165,214,167,1)',
+      paper_bgcolor: 'rgba(200,230,201,1)',
+      plot_bgcolor: 'rgba(200,230,201,1)',
       width: 500,
       height: 300
-
     },
     yieldLayout: {
       title: 'Yield Visualization',
@@ -63,13 +64,12 @@ class App extends Component {
         }
       },
       yaxis: {
-        title: '% of Initial Amount',
+        title: 'Yield on Initial Amount (%)',
         titlefont: {
           size: 14,
           color: 'rgb(107, 107, 107)'
         }
       },
-
       paper_bgcolor: 'rgba(200,230,201,1)',
       plot_bgcolor: 'rgba(200,230,201,1)',
       width: 500,
@@ -206,6 +206,7 @@ class App extends Component {
     const amountData = [
       {
         type: 'bar',
+        marker: {color: 'rgb(255, 152, 0)'},
         x: xArray,
         y: yAmountArray
       }
@@ -214,6 +215,7 @@ class App extends Component {
     const yieldData = [
       {
         type: 'bar',
+        marker: {color: 'rgb(255, 152, 0)'},
         x: xArray,
         y: yYieldArray
       }
@@ -239,6 +241,15 @@ class App extends Component {
       backgroundColor: '#E8F5E9'
     }   
 
+    const mainControlStyle = {
+      width: '80%',
+      margin: '3px auto',
+      padding: '2px 0',
+      border: '1px solid #4CAF50',
+      borderRadius: '5px',
+      backgroundColor: '#A5D6A7'
+    };
+
     const controlStyle = {
       display: 'flex',
       justifyContent: 'center'
@@ -251,6 +262,7 @@ class App extends Component {
         <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
         <Visualization data={this.state.yieldData} layout={this.state.yieldLayout}/>
         
+        <div style={mainControlStyle}>
         <div style={controlStyle}>
           <InputNumber
             onChange={this.amountHandler}
@@ -272,9 +284,7 @@ class App extends Component {
             label={this.state.growth.label}
             value={this.state.growth.value}/>
         </div>
-
-        <OutputNumber label={this.state.years.label} value={this.state.years.value} />
-
+        </div>
 
         <Footer footers={this.state.footers}/>
       </div>
@@ -283,6 +293,9 @@ class App extends Component {
 }
 
 /*
+
+        <OutputNumber label={this.state.years.label} value={this.state.years.value} />
+
           <InputNumber
             onChange={this.yearsHandler}
             label={this.state.years.label}

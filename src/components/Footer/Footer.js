@@ -10,7 +10,7 @@ const footer = (props) => {
         color : 'white',
         backgroundColor: '#4CAF50',
         padding: '0px 0px',
-        margin: '0px 0px'
+        margin: '7px 0 0 0'
     };
     
     const footers = (
