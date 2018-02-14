@@ -36,13 +36,15 @@ const Plot = createPlotlyComponent(Plotly);
 const visualization =  (props) => {
 
     const visualizationStyle = {
-        display: 'flex',
-        justifyContent: 'center',
-        margin: '10px'
+      // width: '90%',
+      // height: '90%',
+      display: 'flex',
+      justifyContent: 'center',
+      margin: '10px'
     };
 
     const plotStyle = {
-        backgroundColor: '#E8F5E9'
+      backgroundColor: '#E8F5E9'
     }
 
     return (
@@ -56,3 +58,40 @@ const visualization =  (props) => {
 };
 
 export default visualization;
+
+/*
+  (function() {
+  var d3 = Plotly.d3;
+  var gd3 = d3.select("div[id='content']");
+  var gd = gd3.node();
+
+  Plotly.plot(gd, [{
+    type: 'bar',
+    x: [1, 2, 3, 4],
+    y: [5, 10, 2, 8],
+    marker: {
+      color: '#C8A2C8',
+      line: {
+        width: 2.5
+      }
+    }
+  }], {
+    title: 'Auto-Resize',
+    font: {
+      size: 16
+    }
+  });
+
+  window.onresize = function() {
+    Plotly.Plots.resize(gd);
+    var window_height = window.innerHeight;
+    var content_div_height = document.getElementById('content').offsetHeight;
+    // workaround for bug in Plotly: when flexbox container gets smaller, graph does not shrink
+    if (content_div_height > (window_height - 40)) {
+      var svg_container = document.getElementById('content').getElementsByClassName('plot-container')[0].getElementsByClassName('svg-container')[0];
+      svg_container.style.height = (window_height - 40) + 'px';
+      Plotly.Plots.resize(gd);
+    }
+  };
+  })();
+*/

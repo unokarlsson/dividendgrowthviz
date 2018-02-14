@@ -21,7 +21,6 @@ const inputRange = (props) => {
             <input style={inputStyle}onChange={props.onChange} value={props.value} type="range" min="3" max="50" step="1"/>
         </div>
     )
-
 }
 
 export default inputRange;

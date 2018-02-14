@@ -14,12 +14,10 @@ import Footer from '../components/Footer/Footer';
 class App extends Component {
   state = {
     applicationTitle: '',
-    footerText1: 'Footer text one',
-    footetText2: 'Footer text two',
     footers: [
-      { id:'1',text:'Footer text one'},
-      { id:'2',text:'Footer text two'},
-      { id:'3',text:'Footer text tree'}
+      { id:'1',text:'By Uno Karlsson'},
+      { id:'2',text:'uno.carlsson@gmail.com'},
+      { id:'3',text:'http://www.unokarlsson.com'}
     ],
     menus : [
       { id:'m1',text:'menu1'},
@@ -51,6 +49,7 @@ class App extends Component {
       // plot_bgcolor: 'rgba(165,214,167,1)',
       paper_bgcolor: 'rgba(200,230,201,1)',
       plot_bgcolor: 'rgba(200,230,201,1)',
+      // autosize: true,
       width: 500,
       height: 300
     },
@@ -72,6 +71,7 @@ class App extends Component {
       },
       paper_bgcolor: 'rgba(200,230,201,1)',
       plot_bgcolor: 'rgba(200,230,201,1)',
+      // autosize: true,
       width: 500,
       height: 300
     }
@@ -241,6 +241,16 @@ class App extends Component {
       backgroundColor: '#E8F5E9'
     }   
 
+    const mainVizStyle = {
+      width: '80%',
+      margin: '3px auto',
+      padding: '2px 0',
+      border: '1px solid #4CAF50',
+      borderRadius: '5px',
+      // backgroundColor: '#A5D6A7'
+      backgroundColor: '#C8E6C9'
+    };
+
     const mainControlStyle = {
       width: '80%',
       margin: '3px auto',
@@ -259,31 +269,35 @@ class App extends Component {
       <div style={mainStyle}>
         <Header title={this.state.applicationTitle}/>
 
-        <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
-        <Visualization data={this.state.yieldData} layout={this.state.yieldLayout}/>
-        
-        <div style={mainControlStyle}>
-        <div style={controlStyle}>
-          <InputNumber
-            onChange={this.amountHandler}
-            label={this.state.amount.label}
-            value={this.state.amount.value}/>
-          <InputNumber
-            onChange={this.dividendHandler}
-            label={this.state.dividend.label}
-            value={this.state.dividend.value}/>
+        <div style={mainVizStyle}>
+          <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
+        </div>  
+        <div style={mainVizStyle}>      
+          <Visualization data={this.state.yieldData} layout={this.state.yieldLayout}/>
         </div>
 
-        <div style={controlStyle}>
-          <InputRange
-            onChange={this.yearsHandler}
-            label={this.state.years.label}
-            value={this.state.years.value}/>
-          <InputNumber
-            onChange={this.growthHandler}
-            label={this.state.growth.label}
-            value={this.state.growth.value}/>
-        </div>
+        <div style={mainControlStyle}>
+          <div style={controlStyle}>
+            <InputNumber
+              onChange={this.amountHandler}
+              label={this.state.amount.label}
+              value={this.state.amount.value}/>
+            <InputNumber
+              onChange={this.dividendHandler}
+              label={this.state.dividend.label}
+              value={this.state.dividend.value}/>
+          </div>
+
+          <div style={controlStyle}>
+            <InputRange
+              onChange={this.yearsHandler}
+              label={this.state.years.label}
+              value={this.state.years.value}/>
+            <InputNumber
+              onChange={this.growthHandler}
+              label={this.state.growth.label}
+              value={this.state.growth.value}/>
+          </div>
         </div>
 
         <Footer footers={this.state.footers}/>

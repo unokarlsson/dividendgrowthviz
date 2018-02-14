@@ -18,7 +18,7 @@ const header = (props) => {
         <div style={headerStyle}>
             <Logo/>
             <HeaderText text={props.title}/>
-            <HeaderText text='Menus'/>
+            <HeaderText text=''/>
         </div>
     )
 }

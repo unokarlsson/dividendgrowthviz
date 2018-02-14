@@ -8,7 +8,7 @@ const inputNumber = (props) => {
 
     const labelStyle = {
         display: 'inline-block',
-        width: '76px'
+        width: '75px'
     }
 
     const inputStyle = {
