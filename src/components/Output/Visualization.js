@@ -1,7 +1,7 @@
 /* global Plotly:true */
 
-import React from 'react';
-// import Aux from '../../hoc/Auxiliary/Auxiliary';
+import React, {Component} from 'react';
+import Dimensions from 'react-dimensions';
 
 import createPlotlyComponent from 'react-plotly.js/factory';
 
@@ -30,11 +30,29 @@ import createPlotlyComponent from 'react-plotly.js/factory';
 //         config={...}
 //      />
 
+/*
+// Example using ES6 syntax
+import React from 'react'
+import Dimensions from 'react-dimensions'
+
+class MyComponent extends React.Component {
+  render() (
+    <div
+      containerWidth={this.props.containerWidth}
+      containerHeight={this.props.containerHeight}
+    >
+    </div>
+  )
+}
+
+export default Dimensions()(MyComponent) // Enhanced component
+*/
 
 const Plot = createPlotlyComponent(Plotly);
 
-const visualization =  (props) => {
+class Visualization extends Component {
 
+  render() {
     const visualizationStyle = {
       // width: '90%',
       // height: '90%',
@@ -45,19 +63,45 @@ const visualization =  (props) => {
 
     const plotStyle = {
       backgroundColor: '#E8F5E9'
+    };
+
+    console.log("containerWidth=" + this.props.containerWidth + ", " +
+                "containerHeight=" + this.props.containerHeight);
+
+    // TODO: Adjust the layout to 80% of container width and hight
+    const width  = Math.round(this.props.containerWidth*0.9);
+    // const height = Math.round(this.props.containerHeight*0.9);
+    let height = Math.round(width*0.75);
+    if(height<=325) {
+      height = 325;
+    } else if (height>450) {
+      height = 450;
     }
+
+    console.log("width=" + width + ", height=" + height);
+
+    const layout = this.props.layout;
+    layout.width = width;
+    layout.height = height;
 
     return (
         <div style={visualizationStyle}>
+
             <Plot style={plotStyle}
-              data={props.data}
-              layout={props.layout}
+              data={this.props.data}
+              layout={layout}
             />
         </div>
     );
+  }
 };
 
-export default visualization;
+export default Dimensions()(Visualization);
+
+/* 
+            containerWidth={this.props.containerWidth}
+            containerHeight={this.props.containerHeight}
+*/
 
 /*
   (function() {
