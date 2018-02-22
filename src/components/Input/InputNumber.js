@@ -12,7 +12,7 @@ const inputNumber = (props) => {
     }
 
     const inputStyle = {
-        width: '75px'
+        width: '100px'
     }
 
     return (

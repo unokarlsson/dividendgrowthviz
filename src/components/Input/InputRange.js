@@ -12,13 +12,20 @@ const inputRange = (props) => {
     }
 
     const inputStyle = {
-        width: '75px'
+        width: '100px'
     }
 
     return (
         <div style={inputRangeStyle}>
             <label style={labelStyle}>{props.label} </label>
-            <input style={inputStyle}onChange={props.onChange} value={props.value} type="range" min="3" max="50" step="1"/>
+            <input 
+                style={inputStyle}
+                onChange={props.onChange}
+                value={props.value}
+                type="range"
+                min="3"
+                max="40"
+                step="1"/>
         </div>
     )
 }
