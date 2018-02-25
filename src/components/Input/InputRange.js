@@ -3,16 +3,20 @@ import React from 'react';
 const inputRange = (props) => {
 
     const inputRangeStyle = {
+        display: 'table-cell',
+        verticalAlign: 'middle',
         margin: '2px 5px'
     }
 
     const labelStyle = {
         display: 'inline-block',
+        verticalAlign: 'middle',
         width: '75px'
     }
 
     const inputStyle = {
-        width: '100px'
+        verticalAlign: 'middle',
+        width: '96px'
     }
 
     return (
@@ -23,7 +27,7 @@ const inputRange = (props) => {
                 onChange={props.onChange}
                 value={props.value}
                 type="range"
-                min="3"
+                min="5"
                 max="40"
                 step="1"/>
         </div>

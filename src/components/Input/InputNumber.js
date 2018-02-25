@@ -2,7 +2,7 @@ import React from 'react';
 
 const inputNumber = (props) => {
 
-    const inputNuberStyle = {
+    const inputNumberStyle = {
         margin: '2px 5px'
     }
 
@@ -16,8 +16,8 @@ const inputNumber = (props) => {
     }
 
     return (
-        <div style={inputNuberStyle}>
-            <label style={labelStyle}>{props.label} </label>
+        <div style={inputNumberStyle}>
+            <label style={labelStyle}>{props.label}</label>
             <input style={inputStyle} onChange={props.onChange}  value={props.value} type='number'/>
         </div>
     );

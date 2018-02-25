@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from '../components/Header/Header';
 // import Menu from '../components/Menu/Menu';
-import InputNumber from '../components/Input/InputNumber';
+// import InputNumber from '../components/Input/InputNumber';
 import InputRange from '../components/Input/InputRange';
 // import Button from '../components/Input/Button';
-import OutputNumber from '../components/Output/OutputNumber';
+// import OutputNumber from '../components/Output/OutputNumber';
 import Visualization from '../components/Output/Visualization';
 import Footer from '../components/Footer/Footer';
+import InputDropdown from '../components/Input/InputDropdown';
 // import Aux from '../hoc/Auxiliary/Auxiliary';
 
 class App extends Component {
@@ -233,71 +234,50 @@ class App extends Component {
 
   render() {
 
-    const mainStyle = {
-      width: '80%',
-      padding: '0px',
-      margin: 'auto',
-      border: '1px solid black',
-      backgroundColor: '#E8F5E9'
-    }   
-
-    const mainVizStyle = {
-      width: '80%',
-      margin: '3px auto',
-      padding: '2px 0',
-      border: '1px solid #4CAF50',
-      borderRadius: '5px',
-      // backgroundColor: '#A5D6A7'
-      backgroundColor: '#C8E6C9'
-    };
-
-    const mainControlStyle = {
-      width: '80%',
-      margin: '3px auto',
-      padding: '2px 0',
-      border: '1px solid #4CAF50',
-      borderRadius: '5px',
-      backgroundColor: '#A5D6A7'
-    };
-
-    const controlStyle = {
-      display: 'flex',
-      justifyContent: 'center'
-    };
-
     return (
-      <div style={mainStyle}>
+      <div class='Main'>
         <Header title={this.state.applicationTitle}/>
 
-        <div style={mainVizStyle}>
+        <div class='MainVizStyle'>
           <Visualization data={this.state.amountData} layout={this.state.amountLayout}/>
         </div>  
-        <div style={mainVizStyle}>      
+        <div  class='MainVizStyle'>      
           <Visualization data={this.state.yieldData} layout={this.state.yieldLayout}/>
         </div>
 
-        <div style={mainControlStyle}>
-          <div style={controlStyle}>
-            <InputNumber
+        <div class='MainControlStyle'>
+          <div class='ControlStyle'>
+            <InputDropdown
               onChange={this.amountHandler}
               label={this.state.amount.label}
-              value={this.state.amount.value}/>
-            <InputNumber
+              value={this.state.amount.value}
+              min={10000}
+              max={1000000}
+              step={10000}/>
+            <InputDropdown
               onChange={this.dividendHandler}
               label={this.state.dividend.label}
-              value={this.state.dividend.value}/>
+              value={this.state.dividend.value}
+              min={0}
+              max={10}
+              step={0.1}/>
           </div>
 
-          <div style={controlStyle}>
+          <div class='ControlStyle'>
             <InputRange
               onChange={this.yearsHandler}
               label={this.state.years.label}
               value={this.state.years.value}/>
-            <InputNumber
+            <InputDropdown
               onChange={this.growthHandler}
               label={this.state.growth.label}
-              value={this.state.growth.value}/>
+              value={this.state.growth.value}
+              min={0}
+              max={25}
+              step={1}/>
           </div>
+          
+
         </div>
 
         <Footer footers={this.state.footers}/>
@@ -307,6 +287,11 @@ class App extends Component {
 }
 
 /*
+
+            <InputNumber
+              onChange={this.dividendHandler}
+              label={this.state.dividend.label}
+              value={this.state.dividend.value}/>
 
         <OutputNumber label={this.state.years.label} value={this.state.years.value} />
 
